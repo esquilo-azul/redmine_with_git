@@ -23,7 +23,7 @@ module RedmineWithGit
           Rails.logger.warn "File \"#{path}\" already exists"
           return
         end
-        build_command.execute!(output_file: path)
+        run_command
         end_banner
       end
 
@@ -35,6 +35,10 @@ module RedmineWithGit
         Rails.logger.info("#{path}: #{number_to_human_size(::File.size(path))}, #{path_type}")
       end
 
+      def run_command
+        build_command.execute!(output_file: path)
+      end
+
       def env
         RedmineWithGit::Envs.local
       end
@@ -43,9 +47,10 @@ module RedmineWithGit
         env.command('file', '-b', path).execute!
       end
 
-      def create_tar_command(dir)
-        env.command(['bash', '-c', "cd #{Shellwords.escape(dir)}; tar -c * | " <<
-              compress_args.join(' ')])
+      def create_tar_command(dir, compression = true)
+        tar = "cd #{Shellwords.escape(dir)}; tar -c *"
+        tar << " | #{compress_args.join(' ')}" if compression
+        env.command(['bash', '-c', tar])
       end
 
       def compress_args
