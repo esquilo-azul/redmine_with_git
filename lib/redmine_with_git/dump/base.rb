@@ -43,10 +43,9 @@ module RedmineWithGit
         env.command('file', '-b', path).execute!
       end
 
-      def create_tar_command(dir, compression = true)
-        tar = "cd #{Shellwords.escape(dir)}; tar -c *"
-        tar << " | #{compress_args.join(' ')}" if compression
-        env.command(['bash', '-c', tar])
+      def create_tar_command(dir)
+        env.command(['bash', '-c', "cd #{Shellwords.escape(dir)}; tar -c * | " <<
+              compress_args.join(' ')])
       end
 
       def compress_args
