@@ -1,21 +1,14 @@
 module RedmineWithGit
   module Dump
-    class Base
-      include ::ActionView::Helpers::NumberHelper
-
+    class Base < ::RedmineWithGit::DumpLoad::Base
       def initialize(path, overwrite)
-        @path = path
         @overwrite = overwrite
-        run
+        super(path)
       end
 
       private
 
-      attr_reader :path, :overwrite
-
-      def resource_name
-        self.class.name.demodulize.underscore
-      end
+      attr_reader :overwrite
 
       def run
         start_banner
@@ -38,14 +31,6 @@ module RedmineWithGit
 
       def run_command
         build_command.execute!(output_file: path)
-      end
-
-      def env
-        RedmineWithGit::Envs.local
-      end
-
-      def path_type
-        env.command('file', '-b', path).execute!
       end
 
       def create_tar_command(dir, compression = true)
