@@ -36,6 +36,10 @@ module RedmineWithGit
       def uncompress_args
         ['gzip', '-d', '-c', '-']
       end
+
+      def tar_extract_command(target_dir)
+        env.command('tar', '-xz', '-C', target_dir)
+      end
     end
   end
 end
