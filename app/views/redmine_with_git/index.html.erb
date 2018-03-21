@@ -3,3 +3,7 @@
 <%= render partial: 'export' %>
 <h3>Import</h3>
 <%= render partial: 'import' %>
+<% if Setting.rest_api_enabled? %>
+  <h3>API</h3>
+  <%= render partial: 'api' %>
+<% end %>

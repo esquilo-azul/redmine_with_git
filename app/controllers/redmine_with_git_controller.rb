@@ -1,6 +1,10 @@
 class RedmineWithGitController < ApplicationController
   before_filter :require_admin
 
+  accept_api_auth :export
+
+  helper ::RedmineWithGitHelper
+
   def index
     @load = ::RedmineWithGit::Tableless::Load.new
   end
