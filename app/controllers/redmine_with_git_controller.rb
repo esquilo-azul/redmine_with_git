@@ -1,7 +1,7 @@
 class RedmineWithGitController < ApplicationController
   before_filter :require_admin
 
-  accept_api_auth :export
+  accept_api_auth :export, :import
 
   helper ::RedmineWithGitHelper
 
@@ -19,14 +19,22 @@ class RedmineWithGitController < ApplicationController
 
   def import
     @load = ::RedmineWithGit::Tableless::Load.new(import_params)
-    if @load.save
+    @load.save
+    respond_to do |format|
+      format.html { import_respond_to_html }
+      format.api { render_validation_errors(@load) }
+    end
+  end
+
+  private
+
+  def import_respond_to_html
+    if @load.errors.empty?
       redirect_to redmine_with_git_path, notice: 'Backup imported'
     else
       render :index
     end
   end
-
-  private
 
   def export_file_name
     "redmine-backup_#{Time.zone.now.strftime('%Y-%m-%d_%H-%M-%S')}.tar"
