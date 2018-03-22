@@ -24,6 +24,7 @@ module RedmineWithGit
           return
         end
         run_command
+        validate_exported
         end_banner
       end
 
@@ -55,6 +56,11 @@ module RedmineWithGit
 
       def compress_args
         %w(gzip -9 -c -)
+      end
+
+      def validate_exported
+        fail "File \"#{path}\" was not generated" unless ::File.exist?(path)
+        fail "File \"#{path}\" has zero size" unless ::File.size(path) > 0
       end
     end
   end
