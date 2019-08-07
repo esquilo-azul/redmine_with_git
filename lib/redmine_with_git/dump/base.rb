@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'avm/files/rotate'
 require 'eac_ruby_utils/listable'
 
 module RedmineWithGit
@@ -7,7 +8,7 @@ module RedmineWithGit
     class Base < ::RedmineWithGit::DumpLoad::Base
       include ::EacRubyUtils::Listable
 
-      lists.add_integer :overwrite, 1 => :denied, 2 => :allowed
+      lists.add_integer :overwrite, 1 => :denied, 2 => :allowed, 3 => :rotate
 
       def initialize(path, options = {})
         @options = options
@@ -24,10 +25,9 @@ module RedmineWithGit
 
       def run
         start_banner
-        if ::File.exist?(path) && overwrite == OVERWRITE_DENIED
-          Rails.logger.warn "File \"#{path}\" already exists"
-          return
-        end
+        return unless run_if_overwrite_denied
+        return unless run_if_rotate
+
         run_command
         validate_exported
         end_banner
@@ -40,6 +40,25 @@ module RedmineWithGit
 
       def end_banner
         Rails.logger.info("#{path}: #{number_to_human_size(::File.size(path))}, #{path_type}")
+      end
+
+      def run_if_overwrite_denied
+        if ::File.exist?(path) && overwrite == OVERWRITE_DENIED
+          Rails.logger.warn "File \"#{path}\" already exists"
+          false
+        else
+          true
+        end
+      end
+
+      def run_if_rotate
+        if ::File.exist?(path) && overwrite == OVERWRITE_ROTATE
+          rotate = ::Avm::Files::Rotate.new(path)
+          ::Rails.logger.info "Rotating \"#{rotate.source_path}\"..."
+          rotate.run
+          ::Rails.logger.info "Rotated to \"#{rotate.target_path}\""
+        end
+        true
       end
 
       def run_command

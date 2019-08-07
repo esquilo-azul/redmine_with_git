@@ -8,7 +8,7 @@ namespace :redmine_with_git do
 
         Arguments:
         * <path>: path to the dump.
-        * [overwrite]: 1: denied, 2: allowed (Default: 1).
+        * [overwrite]: 1: denied, 2: allowed, 3: rotate (Default: 1).
       DESCRIPTION
       task a, %i[path overwrite] => :environment do |_t, args|
         ::RedmineWithGit::Dump.const_get(a.camelize).new(args.path, overwrite: args.overwrite)
