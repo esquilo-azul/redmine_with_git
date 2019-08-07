@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RedmineWithGitController < ApplicationController
   before_filter :require_admin
 
@@ -42,7 +44,8 @@ class RedmineWithGitController < ApplicationController
 
   def import_params
     ps = params[::RedmineWithGit::Tableless::Load.model_name.param_key]
-    return {} unless ps.present?
+    return {} if ps.blank?
+
     ps.permit(:path)
   end
 end

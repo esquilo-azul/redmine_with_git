@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RedmineWithGit
   module Dump
     class Base < ::RedmineWithGit::DumpLoad::Base
@@ -35,17 +37,17 @@ module RedmineWithGit
 
       def create_tar_command(dir, compression = true)
         tar = "cd #{Shellwords.escape(dir)}; tar -c *"
-        tar << " | #{compress_args.join(' ')}" if compression
+        tar += " | #{compress_args.join(' ')}" if compression
         env.command(['bash', '-c', tar])
       end
 
       def compress_args
-        %w(gzip -9 -c -)
+        %w[gzip -9 -c -]
       end
 
       def validate_exported
         raise "File \"#{path}\" was not generated" unless ::File.exist?(path)
-        raise "File \"#{path}\" has zero size" unless ::File.size(path) > 0
+        raise "File \"#{path}\" has zero size" unless ::File.size(path).positive?
       end
     end
   end

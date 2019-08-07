@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'redmine'
 require 'redmine_with_git/version'
 
