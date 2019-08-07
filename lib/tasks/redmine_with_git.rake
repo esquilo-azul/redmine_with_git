@@ -3,11 +3,19 @@
 namespace :redmine_with_git do
   %w[database files git all].each do |a|
     namespace :dump do
+      desc <<~DESCRIPTION
+        Dump backup file for \"#{a}\" resource(s).
+
+        Arguments:
+        * <path>: path to the dump.
+        * [overwrite]: 1: denied, 2: allowed (Default: 1).
+      DESCRIPTION
       task a, %i[path overwrite] => :environment do |_t, args|
-        ::RedmineWithGit::Dump.const_get(a.camelize).new(args.path, args.overwrite.present?)
+        ::RedmineWithGit::Dump.const_get(a.camelize).new(args.path, overwrite: args.overwrite)
       end
     end
     namespace :load do
+      desc "Load backup file for \"#{a}\" resource(s)"
       task a, [:path] => :environment do |_t, args|
         ::RedmineWithGit::Load.const_get(a.camelize).new(args.path)
       end

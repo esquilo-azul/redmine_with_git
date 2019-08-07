@@ -1,2 +1,10 @@
 pt-BR:
+  eac_ruby_utils:
+    listable:
+      redmine_with_git/dump/base:
+        overwrite:
+          allowed:
+            label: Permitido
+          denied:
+            label: Negado
   field_path: Caminho
