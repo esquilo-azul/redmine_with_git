@@ -10,6 +10,8 @@ module RedmineWithGit
 
       lists.add_integer :overwrite, 1 => :denied, 2 => :allowed, 3 => :rotate
 
+      attr_reader :options
+
       def initialize(path, options = {})
         @options = options
         validate_overwrite

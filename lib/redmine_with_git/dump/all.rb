@@ -15,7 +15,7 @@ module RedmineWithGit
       end
 
       def build_sub(resource)
-        resource_class(resource).new(resource_file_path(resource), overwrite)
+        resource_class(resource).new(resource_file_path(resource), options)
       end
 
       def build_command
