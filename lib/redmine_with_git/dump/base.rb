@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'avm/files/rotate'
+require 'eac_ruby_utils/patches/object/asserts'
 require 'eac_ruby_utils/listable'
 
 module RedmineWithGit
@@ -13,6 +14,7 @@ module RedmineWithGit
       attr_reader :options
 
       def initialize(path, options = {})
+        options.assert_argument ::Hash, 'options'
         @options = options
         validate_overwrite
         super(path)
