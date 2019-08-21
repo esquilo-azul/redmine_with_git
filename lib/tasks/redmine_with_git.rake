@@ -9,9 +9,11 @@ namespace :redmine_with_git do
         Arguments:
         * <path>: path to the dump.
         * [overwrite]: 1: denied, 2: allowed, 3: rotate (Default: 1).
+        * [space_limit]: limits the used space by all rotated files.
       DESCRIPTION
-      task a, %i[path overwrite] => :environment do |_t, args|
-        ::RedmineWithGit::Dump.const_get(a.camelize).new(args.path, overwrite: args.overwrite)
+      task a, %i[path overwrite space_limit] => :environment do |_t, args|
+        ::RedmineWithGit::Dump.const_get(a.camelize).new(args.path, overwrite: args.overwrite,
+                                                                    space_limit: args.space_limit)
       end
     end
     namespace :load do
