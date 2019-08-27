@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 class BackupController < ApplicationController
-  before_filter :require_admin
+  EXPORT_PERMISSION = 'redmine_with_git.backup.export'
+  IMPORT_PERMISSION = 'redmine_with_git.backup.import'
+
+  PERMISSIONS = { or: [EXPORT_PERMISSION, IMPORT_PERMISSION] }.freeze
+
+  layout 'nonproject_modules'
+  require_permission PERMISSIONS, only: [:index]
+  require_permission EXPORT_PERMISSION, only: [:export]
+  require_permission IMPORT_PERMISSION, only: [:import]
 
   accept_api_auth :export, :import
 
