@@ -13,7 +13,10 @@ class RedmineWithGitController < ApplicationController
 
   def export
     Tempfile.open('redmine_export') do |file|
-      ::RedmineWithGit::Dump::All.new(file.path, true)
+      ::RedmineWithGit::Dump::All.new(
+        file.path,
+        overwrite: ::RedmineWithGit::Dump::Base::OVERWRITE_ALLOWED
+      )
       send_file(file.path, filename: export_file_name, type: 'application/x-tar',
                            size: file.size)
     end
