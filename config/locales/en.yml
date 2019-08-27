@@ -1,4 +1,5 @@
 en:
+  label_backup: Backup
   eac_ruby_utils:
     listable:
       redmine_with_git/dump/base:

@@ -15,7 +15,7 @@ Redmine::Plugin.register :redmine_with_git do
   author_url 'https://github.com/esquilo-azul'
 
   Redmine::MenuManager.map :admin_menu do |menu|
-    menu.push :redmine_with_git, { controller: 'redmine_with_git', action: 'index', id: nil },
+    menu.push :redmine_with_git, { controller: 'backup', action: 'index', id: nil },
               caption: 'Redmine with Git',
               if: proc { User.current.admin? }
   end

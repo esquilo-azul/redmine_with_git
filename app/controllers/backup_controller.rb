@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RedmineWithGitController < ApplicationController
+class BackupController < ApplicationController
   before_filter :require_admin
 
   accept_api_auth :export, :import
@@ -35,7 +35,7 @@ class RedmineWithGitController < ApplicationController
 
   def import_respond_to_html
     if @load.errors.empty?
-      redirect_to redmine_with_git_path, notice: 'Backup imported'
+      redirect_to backup_path, notice: 'Backup imported'
     else
       render :index
     end
