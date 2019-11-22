@@ -38,7 +38,7 @@ export redmine_git_hosting_ssh_key_name=redmine_git_hosting_id
 
 # Auxiliary settings
 export REDMINE_WITH_GIT_INSTALL_ROOT="$(dirname "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
-export REDMINE_WITH_GIT_TEMPLATE_ROOT="${REDMINE_WITH_GIT_INSTALL_ROOT}/template"
+export REDMINE_WITH_GIT_TEMPLATE_ROOT="${REDMINE_WITH_GIT_INSTALL_ROOT}/installer/template"
 
 # Redmine configuration
 if [ ! -v 'REDMINE_CONFIGURATION_EXTRA' ]; then
