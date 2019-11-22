@@ -44,4 +44,4 @@ export REDMINE_WITH_GIT_TEMPLATE_ROOT="${REDMINE_WITH_GIT_INSTALL_ROOT}/installe
 if [ ! -v 'REDMINE_CONFIGURATION_EXTRA' ]; then
   export REDMINE_CONFIGURATION_EXTRA=''
 fi
-REDMINE_CONFIGURATION_EXTRA+="  scm_xiolite_command: /usr/bin/git\n"
+export REDMINE_CONFIGURATION_EXTRA+="  scm_xiolite_command: /usr/bin/git"
