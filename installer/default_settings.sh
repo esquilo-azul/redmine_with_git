@@ -25,10 +25,6 @@ export address_https=false
 export address_host=localhost
 export address_port=
 set_by_boolean address_https address_scheme https http
-export address_server="$address_host"
-if [ -n "$address_port" ]; then
-  export address_server="$address_server:$address_port"
-fi
 export git_repositories_hierarchical_organisation=true
 set_by_boolean git_repositories_hierarchical_organisation git_repositories_unique_repo_identifier \
   false true

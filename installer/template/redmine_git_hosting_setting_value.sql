@@ -15,7 +15,7 @@ gitolite_flush_cache: 'false'
 gitolite_global_storage_dir: repositories/
 gitolite_hooks_are_asynchronous: 'false'
 gitolite_hooks_debug: 'false'
-gitolite_hooks_url: "${address_scheme}://${address_server}${address_path}"
+gitolite_hooks_url: "${address_scheme}://${address_authority}${address_path}"
 gitolite_http_by_default: '1'
 gitolite_identifier_prefix: redmine_
 gitolite_identifier_strip_user_id: 'false'
@@ -43,9 +43,9 @@ gitolite_timeout: '10'
 gitolite_user: ${gitolite_user}
 gitolite_use_sidekiq: 'false'
 hierarchical_organisation: '${git_repositories_hierarchical_organisation}'
-http_server_domain: ${address_server}
+http_server_domain: ${address_authority}
 http_server_subdir: ''
-https_server_domain: ${address_server}
+https_server_domain: ${address_authority}
 init_repositories_on_create: 'false'
 redmine_has_rw_access_on_all_repos: 'true'
 show_repositories_url: 'true'
