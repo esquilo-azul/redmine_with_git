@@ -33,3 +33,6 @@ if [ ! -v 'REDMINE_CONFIGURATION_EXTRA' ]; then
   export REDMINE_CONFIGURATION_EXTRA=''
 fi
 export REDMINE_CONFIGURATION_EXTRA+="  scm_xiolite_command: /usr/bin/git"
+
+# SSH Server
+export SSH_SERVER_PACKAGE="openssh-server"
