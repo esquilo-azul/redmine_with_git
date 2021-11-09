@@ -36,3 +36,4 @@ export REDMINE_CONFIGURATION_EXTRA+="  scm_xiolite_command: /usr/bin/git"
 
 # SSH Server
 export SSH_SERVER_PACKAGE="openssh-server"
+export SSH_SERVER_SERVICE="ssh"
