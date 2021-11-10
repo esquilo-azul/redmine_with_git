@@ -5,8 +5,10 @@ module RedmineWithGit
     module Database
       def build_postgres_command(command, args = [])
         env.command(
-          [password_arg, command, '-h', database_schema['host'], '-U',
-           database_schema['username'], '-d', database_schema['database']] + args
+          [password_arg, command] + {
+            host: database_schema['host'],
+            username: database_schema['username'], dbname: database_schema['database']
+          }.flat_map { |k, v| ["--#{k}", v] } + args
         )
       end
 
