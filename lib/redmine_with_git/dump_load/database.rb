@@ -6,7 +6,7 @@ module RedmineWithGit
       def build_postgres_command(command, args = [])
         env.command(
           [password_arg, command] + {
-            host: database_schema['host'],
+            host: database_schema['host'], port: database_schema['port'],
             username: database_schema['username'], dbname: database_schema['database']
           }.flat_map { |k, v| ["--#{k}", v] } + args
         )
